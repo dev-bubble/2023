@@ -73,24 +73,27 @@
 				$('table button.lottery').on('click', function() {
 					var clickBtn = $(this);
 					if(isOpen){
+						event.preventDefault();
 						$("#dialog").dialog('close');
 					}
 					var grade = clickBtn.val();
 					
-					$("#dialog").html(grade+'등 -'+$('#doList li').eq(grade-1).find('.chgInputTxt').text());
+					$("#dialog").html($('#doList li').eq(grade-1).find('.chgInputTxt').text());
 					
 					$("#dialog").dialog({
 						show: {effect: 'fade', duration: 800},
 						open: function (event, ui) {
-							clickBtn.effect('transfer', {to : $('#dialog').parent('div'), className: "ui-effects-transfer"}, 500, function() {
-							});
+							clickBtn.effect('transfer', {to : $('#dialog').parent('div'), className: "ui-effects-transfer"}, 500);
 							clickBtn.addClass('none');
 							isOpen = $( "#dialog" ).dialog( "isOpen" );
 							leftLottery();
 						},
 						close: function (event, ui) {
 						},
-						width : "50%"
+						width : "20%",
+						closeOnEscape: true,
+						modal :true,
+						title : grade + '등'
 					});
 				});
 			});
