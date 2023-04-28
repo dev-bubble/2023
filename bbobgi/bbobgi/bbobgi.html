@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>추억의 뽑기</title>
+		<meta charset="UTF-8" />
+		<style>
+		table{border-collapse: collapse;width:540px;height:960px;}
+		table, th, td {border: 1px solid;}
+		td{height:20px;width:20px;}
+		.none{display:none;}
+		</style>
+		<link href="./css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+		<script src="./js/jquery-3.6.4.min.js"></script>
+		<script src="./js/jquery-ui.min.js"></script>
+		<script>
+			var row = 20;
+			var col = 20;
+			var totalLottery = row * col;			
+
+			var lottery_1 = 1;
+			var lottery_2 = 3;
+			var lottery_3 = 16;
+			var lottery_4 = 100;
+			var lottery_5 = totalLottery - lottery_1 - lottery_2 - lottery_3 - lottery_4;
+			$(function() {
+				for(var i = 0; i < row; i++){
+					var tr = document.createElement('tr');
+					for(k = 0; k < col; k++){
+						var td = document.createElement('td');
+						var button = document.createElement('button');
+						$(button).addClass('lottery');
+						$(button).val('');
+						$(button).text('뽑기');
+						td.append(button);
+						tr.append(td);
+					}
+					$('#bbogiTbl').append(tr);
+				}
+				var buttonCnt = $('button.lottery[value=""]').length;
+				for(var i = 0 ; i < buttonCnt; i++){
+					var randomButton = Math.floor(Math.random()*$('button.lottery[value=""]').length);
+					var randomGrade;
+					while(true){
+						var randomGrade = Math.floor(Math.random()*5+1);
+						if(eval('lottery_'+randomGrade)!= 0){
+							eval('lottery_'+randomGrade+'--')
+							break;
+						}
+					}
+					$('button.lottery[value=""]').eq(randomButton).val(randomGrade);
+				}
+				
+				leftLottery();
+				
+				$('.chgInputTxt').dblclick(function() {
+					if($(this).find('input').length > 0){
+						$(this).html($(this).find('input').val());
+					} else {
+						var inputNum = document.createElement('input');
+						inputNum.type = 'text';
+						inputNum.value = $(this).text();
+						$(this).html(inputNum);
+						$(this).find('input').focus();
+					}
+				})
+				
+				$('table button.lottery').on('click', function() {
+					var grade = $(this).val();
+					$(this).addClass('none');
+					leftLottery();
+					$("#dialog").html(grade+'등 -'+$('#doList li').eq(grade-1).find('.chgInputTxt').text());
+					$("#dialog").dialog({
+						width : "50%"
+					});
+				});
+			});
+			
+			function leftLottery() {
+				for(var i = 0; i < $('ul#leftLottery li').length; i++){
+					$('ul#leftLottery li').eq(i).find('span').text($('button.lottery[value="'+$('ul#leftLottery li').eq(i).text().substring(0, 1)+'"]').not('[class*=none]').length)
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h2>추억의 서머 뽑기</h2>
+		<div>
+			<ul id="doList">
+				<li>1등 : <span class="chgInputTxt">액트1</span></li>
+				<li>2등 : <span class="chgInputTxt">액트2</span></li>
+				<li>3등 : <span class="chgInputTxt">액트3</span></li>
+				<li>4등 : <span class="chgInputTxt">액트4</span></li>
+				<li>5등 : <span class="chgInputTxt">액트5</span></li>
+			</ul>
+		</div>
+		<div>
+			<ul id="leftLottery">
+				<li>1등 : <span></span></li>
+				<li>2등 : <span></span></li>
+				<li>3등 : <span></span></li>
+				<li>4등 : <span></span></li>
+				<li>5등 : <span></span></li>
+			</ul>
+		</div>
+		<table id="bbogiTbl" style="background-image:url('./image/540x960_서머너즈 워.jpg');background-repeat:no-repeat;">
+			
+		</table>
+		<div id="dialog" title="당신의 운은?"></div>
+	</body>
+</html>
