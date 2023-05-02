@@ -4,15 +4,22 @@
 		<title>추억의 서머너즈워 뽑기</title>
 		<meta charset="UTF-8" />
 		<style>
-		.wrap{width:1000px;}
+		body{width:100%;margin:0;background:#f4eff6;}
+		.wrap{width:100%;max-width:1300px;position:relative;/*background-image:url("./image/smon_2.jpg");background-repeat:no-repeat;background-size: 100% 100%;*/}
 		table{border-collapse: collapse;width:800px;height:600px;}
 		table, th, td {border: 1px solid;}
-		td{width:20px;height:50px;}
+		td{width:20px;}
 		.none{display:none;}
 		table .lottery{width:100%;height:100%;background-image:url("./image/summonersWar.jpg");background-repeat:no-repeat;background-size: 100% 100%;}
 		.ui-effects-transfer {
 			border: 2px dotted gray;
 		}
+		.center {
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.pdl10{padding-left:10px;}
+		.pdr10{padding-right:10px;}
 		</style>
 		<link href="./css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 		<script src="./js/jquery-3.6.4.min.js"></script>
@@ -106,10 +113,10 @@
 		</script>
 	</head>
 	<body>
-		<div class="wrap">
-			<h1>추억의 서머 뽑기</h1>
-			<div style="width:50%;float:left;min-height:200px;">
-				<h2>상품</h2>
+		<div class="wrap center">
+			<h1 style="text-align:center;">추억의 서머 뽑기</h1>
+			<div class="center pdl10" style="width:auto;float:left;min-height:200px;">
+				<h2 >상품</h2>
 				<ul id="doList">
 					<li>1등 : <span class="chgInputTxt">축!!1등!!</span></li>
 					<li>2등 : <span class="chgInputTxt">까비 2등!!!</span></li>
@@ -118,7 +125,7 @@
 					<li>5등 : <span class="chgInputTxt">꽝</span></li>
 				</ul>
 			</div>
-			<div style="width:50%;float:right;min-height:200px;">
+			<div class="center pdr10" style="width:auto;float:right;min-height:200px;">
 				<h2>상품 남은 갯수</h2>
 				<ul id="leftLottery">
 					<li>1등 : <span></span></li>
@@ -129,7 +136,7 @@
 				</ul>
 			</div>
 			<div style="margin:auto 0;text-align:center;">
-				<table id="bbogiTbl" style="background-image:url('./image/960x720_서머너즈 워.jpg');background-repeat:no-repeat;background-size: 100% 100%;">
+				<table class="center" id="bbogiTbl" style="background-image:url('./image/960x720_서머너즈 워.jpg');background-repeat:no-repeat;background-size: 100% 100%;">
 					
 				</table>
 				<div id="dialog" title="당신의 운은?"></div>
