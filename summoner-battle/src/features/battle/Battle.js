@@ -9,7 +9,7 @@ import {
 } from './battleSlice';
 import styles from './Battle.module.css';
 
-export function Battle() {
+export function Battle({ id }) {
   const boss = useSelector(selectBoss);
   const player = useSelector(selectPlayer);
   const dispatch = useDispatch();
