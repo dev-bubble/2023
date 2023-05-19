@@ -6,7 +6,8 @@ function Main() {
     return (
     <div className="App">
       <h1>보스모드</h1>
-      <Battle/>
+      <Battle id="1" />
+      <Battle id="2" />
       <Link to="/">
           <button>뒤로가기</button>
       </Link>
