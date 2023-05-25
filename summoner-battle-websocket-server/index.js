@@ -9,12 +9,16 @@ const io = new Server({
 });
 
 io.on("connection", (socket) => {
+  socket.emit("hello");
+
   socket.on("disconnecting", (reason) => {
     console.log(`user(${socket.id}) has left: ${reason}`);
   });
 
-  console.log("socket.id:", socket.id);
-  socket.emit("hello");
+  socket.on("player", (args) => {
+    console.log(`player(${socket.id}):`, args);
+    socket.broadcast.emit("player", args);
+  });
 });
 
 io.listen(WEBSOCKET_PORT);
