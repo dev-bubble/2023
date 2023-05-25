@@ -10,5 +10,8 @@
     "websocket"
   ],
   "author": "Heedo Kim (devheedoo@gmail.com)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.6.1"
+  }
 }
