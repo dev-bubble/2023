@@ -21,7 +21,7 @@ const initialState = {
     fire: 1,
     water: 1,
     wind: 1,
-    light:1,
+    light: 1,
     dark: 1,
     luck: 1,
     power: 1,
@@ -30,29 +30,29 @@ const initialState = {
     isThreeStar: true,
     isFourStar: false,
     isFiveStar: false,
-    element: "fire",
-  }
+    element: 'fire',
+  },
 };
 
-function calculateAttackDamage(player, situation){
-  let finalDamage = player.damage*10;
-  if(situation.element === "dark" || situation.element === "light"){
+function calculateAttackDamage(player, situation) {
+  let finalDamage = player.damage * 10;
+  if (situation.element === 'dark' || situation.element === 'light') {
     finalDamage += skills.DLD[player[situation.element]];
   } else {
     finalDamage += skills.ED[player[situation.element]];
   }
-  
-  if(situation.isFourStar){
+
+  if (situation.isFourStar) {
     finalDamage += skills.SD4[player.fourStar];
-  } else if(situation.isFiveStar){
+  } else if (situation.isFiveStar) {
     finalDamage += skills.SD5[player.fiveStar];
   }
-  
-  if(Date.now() % 100 < (skills.CRP[player.luck]) * 100){
-    Math.floor(finalDamage *= skills.CRD[player.power]);
+
+  if (Date.now() % 100 < skills.CRP[player.luck] * 100) {
+    Math.floor((finalDamage *= skills.CRD[player.power]));
   }
-  console.log(`${finalDamage}의 데미지!`)
-  return finalDamage
+  console.log(`${finalDamage}의 데미지!`);
+  return finalDamage;
 }
 
 export const battleSlice = createSlice({
@@ -61,24 +61,23 @@ export const battleSlice = createSlice({
   reducers: {
     attackToBoss: (state, action) => {
       const boss = state.boss;
-      state.boss.hp -= calculateAttackDamage(state.player,action.payload);
-      if(state.boss.hp < boss.p4){
+      state.boss.hp -= calculateAttackDamage(state.player, action.payload);
+      if (state.boss.hp < boss.p4) {
         state.boss.phase = 5;
-      } else if(state.boss.hp < boss.p3) {
+      } else if (state.boss.hp < boss.p3) {
         state.boss.phase = 4;
-      } else if(state.boss.hp < boss.p2) {
+      } else if (state.boss.hp < boss.p2) {
         state.boss.phase = 3;
-      } else if(state.boss.hp < boss.p1) {
+      } else if (state.boss.hp < boss.p1) {
         state.boss.phase = 2;
       }
     },
     addSkillPoint: (state, action) => {
-      if(skillMax[action.payload] > state.player[action.payload])
+      if (skillMax[action.payload] > state.player[action.payload])
         state.player[action.payload] += 1;
     },
     minusSkillPoint: (state, action) => {
-      if(state.player[action.payload] > 1)
-        state.player[action.payload] -= 1;
+      if (state.player[action.payload] > 1) state.player[action.payload] -= 1;
     },
     fixToThree: (state) => {
       state.summon = {
@@ -86,7 +85,7 @@ export const battleSlice = createSlice({
         isThreeStar: true,
         isFourStar: false,
         isFiveStar: false,
-      }
+      };
     },
     fixToFour: (state) => {
       state.summon = {
@@ -94,7 +93,7 @@ export const battleSlice = createSlice({
         isThreeStar: false,
         isFourStar: true,
         isFiveStar: false,
-      }
+      };
     },
     fixToFive: (state) => {
       state.summon = {
@@ -102,13 +101,13 @@ export const battleSlice = createSlice({
         isThreeStar: false,
         isFourStar: false,
         isFiveStar: true,
-      }
+      };
     },
     fixElement: (state, action) => {
       state.summon = {
         ...state.summon,
         element: action.payload,
-      }
+      };
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload;
@@ -120,6 +119,14 @@ export const selectBoss = (state) => state.battle.boss;
 export const selectPlayer = (state) => state.battle.player;
 export const selectSummon = (state) => state.battle.summon;
 
-export const { attackToBoss, addSkillPoint, minusSkillPoint, fixElement, fixToFive, fixToThree, fixToFour } = battleSlice.actions;
+export const {
+  attackToBoss,
+  addSkillPoint,
+  minusSkillPoint,
+  fixElement,
+  fixToFive,
+  fixToThree,
+  fixToFour,
+} = battleSlice.actions;
 
 export default battleSlice.reducer;
