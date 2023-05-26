@@ -1,0 +1,17 @@
+{
+  "name": "summoner-battle-websocket-server",
+  "version": "1.0.0",
+  "description": "websocket server for summoner-battle using socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "websocket"
+  ],
+  "author": "Heedo Kim (devheedoo@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.6.1"
+  }
+}
