@@ -1,4 +1,6 @@
 .App {
+  background-image: url('./bg.jpg');
+  background-size: cover;
   text-align: center;
 }
 
@@ -36,4 +38,37 @@
   100% {
     transform: translateY(0px);
   }
+}
+
+.fix-at-top{
+  text-align: right;
+  position: fixed;
+  top: 15px;
+  right: 30px;
+}
+
+
+.fix-at-top p i {
+  margin-left: 12px;
+}
+.fix-at-top p {
+  font-weight: bold;
+}
+
+.fix-at-top button {
+  margin: 0 0 0 10px;
+}
+
+.fa-power-off.true{
+  color: white;
+  background-color: greenyellow;
+  padding: 10px;
+  border-radius: 100%;
+}
+
+.fa-power-off.false{
+  color: white;
+  background-color: red;
+  padding: 10px;
+  border-radius: 100%;
 }
