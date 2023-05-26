@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './App.css';
-import { Battle } from '../../features/battle/Battle';
+import { Boss } from '../../features/boss/Boss';
 import { socket } from '../../socket';
 import { useDispatch } from 'react-redux';
 
@@ -23,7 +23,6 @@ function Main() {
     socket.on('player', (args) => {
       const { 속성, 등급 } = args;
       if (!(속성 && 등급)) return;
-
       console.log(`소환 정보 - 속성: ${속성} / 등급: ${등급}`);
       dispatch(
         attackToBoss({
@@ -39,13 +38,13 @@ function Main() {
   return (
     <div className="App">
       <h1>보스모드</h1>
+      <div className="fix-at-top">
+        <p>웹소켓 서버 연결 상태  <i className={`fa-solid fa-power-off ${isSocketServerConnected}`} /></p>
+        <button onClick={() => socket.connect()}>연결</button>
+        <button onClick={() => socket.disconnect()}>해제</button>
+      </div>
 
-      <p>웹소켓 서버 연결 상태: {'' + isSocketServerConnected}</p>
-      <button onClick={() => socket.connect()}>연결</button>
-      <button onClick={() => socket.disconnect()}>해제</button>
-
-      <Battle id="1" />
-      <Battle id="2" />
+      <Boss />
       <Link to="/">
         <button>뒤로가기</button>
       </Link>
